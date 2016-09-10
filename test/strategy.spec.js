@@ -60,7 +60,7 @@ describe('AjvValidationStrategy', () => {
         firstName: {type: 'string'}
       }
     }
-    strategy().validate({}, schema, {key:'firstName'}, errors => {
+    strategy().validate({}, schema, {key: 'firstName'}, errors => {
       expect(errors).to.have.keys(['firstName'])
       expect(errors['firstName']).to.deep.equal(['should have required property \'firstName\''])
       done()
@@ -75,7 +75,7 @@ describe('AjvValidationStrategy', () => {
           type: 'object',
           required: ['b'],
           properties: {
-            b: {type: 'string'},
+            b: {type: 'string'}
           }
         }
       }
@@ -95,13 +95,13 @@ describe('AjvValidationStrategy', () => {
           type: 'object',
           required: ['b'],
           properties: {
-            b: {type: 'string'},
+            b: {type: 'string'}
           }
         }
       }
     }
     const data = {a: {b: 'foo'}}
-    strategy().validate(data, schema, {key:'a.b'}, errors => {
+    strategy().validate(data, schema, {key: 'a.b'}, errors => {
       expect(errors['a']['b']).to.be.empty
       done()
     })
@@ -115,12 +115,12 @@ describe('AjvValidationStrategy', () => {
           type: 'object',
           required: ['b'],
           properties: {
-            b: {type: 'string'},
+            b: {type: 'string'}
           }
         }
       }
     }
-    const data = {a:{}}
+    const data = {a: {}}
     strategy().validate(data, schema, {}, errors => {
       expect(errors).to.have.keys(['a'])
       expect(errors['a']).to.have.keys(['b'])
@@ -137,13 +137,13 @@ describe('AjvValidationStrategy', () => {
           type: 'object',
           required: ['b'],
           properties: {
-            b: {type: 'string'},
+            b: {type: 'string'}
           }
         }
       }
     }
-    const data = {a:{}}
-    strategy().validate(data, schema, {key:'a.b'}, errors => {
+    const data = {a: {}}
+    strategy().validate(data, schema, {key: 'a.b'}, errors => {
       expect(errors).to.have.keys(['a'])
       expect(errors['a']).to.have.keys(['b'])
       expect(errors['a']['b']).to.deep.equal(['should have required property \'b\''])
@@ -159,14 +159,14 @@ describe('AjvValidationStrategy', () => {
           type: 'object',
           required: ['b'],
           properties: {
-            b: {type: 'string'},
+            b: {type: 'string'}
           }
         }
       }
     }
-    const data = {a:{}}
-    strategy().validate(data, schema, {key:'a.b.c'}, errors => {
-      expect(errors).to.deep.equal({a:{b:{c:undefined}}})
+    const data = {a: {}}
+    strategy().validate(data, schema, {key: 'a.b.c'}, errors => {
+      expect(errors).to.deep.equal({a: {b: {c: undefined}}})
       done()
     })
   })
@@ -181,15 +181,15 @@ describe('AjvValidationStrategy', () => {
           required: ['b', 'c'],
           properties: {
             b: {type: 'string'},
-            c: {type: 'string'},
+            c: {type: 'string'}
           }
         },
         d: {type: 'string'}
       }
     }
-    const data = {a:{}}
-    strategy().validate(data, schema, {key:'a'}, errors => {
-      expect(errors).to.deep.equal({a:{b:['should have required property \'b\''], c:['should have required property \'c\'']}})
+    const data = {a: {}}
+    strategy().validate(data, schema, {key: 'a'}, errors => {
+      expect(errors).to.deep.equal({a: {b: ['should have required property \'b\''], c: ['should have required property \'c\'']}})
       done()
     })
   })
@@ -236,7 +236,7 @@ describe('AjvValidationStrategy', () => {
         }
       }
     }
-    strategy().validate({range: [0], password: '123'}, schema, {key:'range'}, errors => {
+    strategy().validate({range: [0], password: '123'}, schema, {key: 'range'}, errors => {
       expect(errors['range']).to.be.empty
       done()
     })
@@ -260,8 +260,8 @@ describe('AjvValidationStrategy', () => {
         }
       }
     }
-    strategy().validate({range: [100,200], password: ''}, schema, {}, errors => {
-      expect(errors).to.have.keys(['range','password'])
+    strategy().validate({range: [100, 200], password: ''}, schema, {}, errors => {
+      expect(errors).to.have.keys(['range', 'password'])
       expect(errors['password']).to.deep.equal([
         'should match pattern "[a-zA-Z0-9]{3,30}"'
       ])
@@ -289,7 +289,7 @@ describe('AjvValidationStrategy', () => {
         }
       }
     }
-    strategy().validate({range: [100,200], password: ''}, schema, {key:'password'}, errors => {
+    strategy().validate({range: [100, 200], password: ''}, schema, {key: 'password'}, errors => {
       expect(errors).to.have.keys(['password'])
       expect(errors['password']).to.deep.equal([
         'should match pattern "[a-zA-Z0-9]{3,30}"'
@@ -320,7 +320,7 @@ describe('AjvValidationStrategy', () => {
     strategy().validate(value, schema, {}, errors => {
       expect(errors).to.have.keys(['objects'])
       expect(errors['objects'][0]).to.equal(undefined)
-      expect(errors['objects'][1]).to.deep.equal({b:['should have required property \'b\'']})
+      expect(errors['objects'][1]).to.deep.equal({b: ['should have required property \'b\'']})
       done()
     })
   })
@@ -343,10 +343,10 @@ describe('AjvValidationStrategy', () => {
       }
     }
     const value = {objects: [{}, {a: 'a'}]}
-    strategy().validate(value, schema, {key:'objects[1]'}, errors => {
+    strategy().validate(value, schema, {key: 'objects[1]'}, errors => {
       expect(errors).to.have.keys(['objects'])
       expect(errors['objects'][0]).to.equal(undefined)
-      expect(errors['objects'][1]).to.deep.equal({b:['should have required property \'b\'']})
+      expect(errors['objects'][1]).to.deep.equal({b: ['should have required property \'b\'']})
       done()
     })
   })
@@ -386,9 +386,9 @@ describe('AjvValidationStrategy', () => {
         }
       }
     }
-    strategy().validate({objects:[{}, {a: 'a'}], form: {username: null}}, schema, {}, errors => {
+    strategy().validate({objects: [{}, {a: 'a'}], form: {username: null}}, schema, {}, errors => {
       expect(errors).to.have.keys(['objects', 'form'])
-      expect(errors['objects'][1]).to.deep.equal({b:['should have required property \'b\'']})
+      expect(errors['objects'][1]).to.deep.equal({b: ['should have required property \'b\'']})
       expect(errors['form'].username[0]).to.equal('should be string')
       done()
     })

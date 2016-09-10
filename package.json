@@ -1,6 +1,6 @@
 {
   "name": "json-schema-validation-strategy",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "Json schema validator for react-validation-mixin",
   "main": "dist/json-schema-validation-strategy.js",
   "module": "dist/json-schema-validation-strategy.mjs",
