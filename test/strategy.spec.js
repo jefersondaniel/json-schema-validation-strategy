@@ -32,7 +32,7 @@ describe('AjvValidationStrategy', () => {
     }
     const data = {firstName: 'foo'}
     strategy().validate(data, schema, {key: 'firstName'}, errors => {
-      expect(errors).to.be.empty
+      expect(errors['firstName']).to.be.empty
       done()
     })
   })
@@ -102,7 +102,7 @@ describe('AjvValidationStrategy', () => {
     }
     const data = {a: {b: 'foo'}}
     strategy().validate(data, schema, {key:'a.b'}, errors => {
-      expect(errors).to.be.empty
+      expect(errors['a']['b']).to.be.empty
       done()
     })
   })
@@ -151,7 +151,6 @@ describe('AjvValidationStrategy', () => {
     })
   })
 
-  /*
   it('should validate nested schema and data for missing deep key', (done) => {
     const schema = {
       type: 'object',
@@ -171,7 +170,6 @@ describe('AjvValidationStrategy', () => {
       done()
     })
   })
-  */
 
   it('should fail validation for nested schema and data for intermediate key and its children', (done) => {
     const schema = {
@@ -239,7 +237,7 @@ describe('AjvValidationStrategy', () => {
       }
     }
     strategy().validate({range: [0], password: '123'}, schema, {key:'range'}, errors => {
-      expect(errors).to.be.empty
+      expect(errors['range']).to.be.empty
       done()
     })
   })
@@ -327,7 +325,6 @@ describe('AjvValidationStrategy', () => {
     })
   })
 
-  /*
   it('should validate object arrays in schema and data for key', (done) => {
     const schema = {
       type: 'object',
@@ -348,13 +345,11 @@ describe('AjvValidationStrategy', () => {
     const value = {objects: [{}, {a: 'a'}]}
     strategy().validate(value, schema, {key:'objects[1]'}, errors => {
       expect(errors).to.have.keys(['objects'])
-      expect(errors['objects']).to.have.length(2)
       expect(errors['objects'][0]).to.equal(undefined)
       expect(errors['objects'][1]).to.deep.equal({b:['should have required property \'b\'']})
       done()
     })
   })
-  */
 
   it('should validate nested objects', (done) => {
     const schema = {
