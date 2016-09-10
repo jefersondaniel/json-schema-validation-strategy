@@ -2,7 +2,7 @@
 import {expect} from 'chai'
 import strategy from '../lib/strategy'
 
-describe('AjvValidationStrategy', () => {
+describe('JsonSchemaValidationStrategy', () => {
   it('ensure exports function', () => {
     expect(typeof strategy === 'function').to.equal(true)
   })
