@@ -22,5 +22,9 @@ export default {
       format: 'es',
       sourceMap: true
     }
-  ]
+  ],
+  globals: {
+    'ajv': 'ajv',
+    'ajv-inspector': 'AjvInspector'
+  }
 }

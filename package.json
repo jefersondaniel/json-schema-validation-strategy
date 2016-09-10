@@ -1,6 +1,6 @@
 {
   "name": "json-schema-validation-strategy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Json schema validator for react-validation-mixin",
   "main": "dist/json-schema-validation-strategy.js",
   "module": "dist/json-schema-validation-strategy.mjs",
@@ -14,7 +14,7 @@
     "build": "rollup -c",
     "watch": "rollup -c -w",
     "test": "mocha --compilers js:babel-register test/*.js",
-    "prepublish": "npm test"
+    "prepublish": "npm test && npm run build"
   },
   "author": "Jeferson Daniel",
   "license": "MIT",
