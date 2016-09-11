@@ -24,7 +24,6 @@ export default {
     }
   ],
   globals: {
-    'ajv': 'ajv',
-    'ajv-inspector': 'AjvInspector'
+    'jsen': 'jsen',
   }
 }
