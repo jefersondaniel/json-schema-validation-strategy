@@ -55,4 +55,20 @@ describe('messages', () => {
       done()
     })
   })
+
+  it('should stringify enum', (done) => {
+    const schema = {
+      type: 'object',
+      properties: {
+        'type': {
+          'type': 'string',
+          'enum': ['private', 'public']
+        }
+      }
+    }
+    strategy().validate({type: 'ha'}, schema, {}, errors => {
+      expect(errors['type']).to.deep.equal(['"type" must be one of: private, public'])
+      done()
+    })
+  })
 })
