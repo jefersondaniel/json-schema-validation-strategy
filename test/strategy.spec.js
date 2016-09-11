@@ -47,7 +47,7 @@ describe('JsonSchemaValidationStrategy', () => {
     }
     strategy().validate({}, schema, {}, errors => {
       expect(errors).to.have.keys(['firstName'])
-      expect(errors['firstName']).to.deep.equal(['should have required property \'firstName\''])
+      expect(errors['firstName']).to.deep.equal(['"firstName" is required'])
       done()
     })
   })
@@ -62,7 +62,7 @@ describe('JsonSchemaValidationStrategy', () => {
     }
     strategy().validate({}, schema, {key: 'firstName'}, errors => {
       expect(errors).to.have.keys(['firstName'])
-      expect(errors['firstName']).to.deep.equal(['should have required property \'firstName\''])
+      expect(errors['firstName']).to.deep.equal(['"firstName" is required'])
       done()
     })
   })
@@ -124,7 +124,7 @@ describe('JsonSchemaValidationStrategy', () => {
     strategy().validate(data, schema, {}, errors => {
       expect(errors).to.have.keys(['a'])
       expect(errors['a']).to.have.keys(['b'])
-      expect(errors['a']['b']).to.deep.equal(['should have required property \'b\''])
+      expect(errors['a']['b']).to.deep.equal(['"b" is required'])
       done()
     })
   })
@@ -146,7 +146,7 @@ describe('JsonSchemaValidationStrategy', () => {
     strategy().validate(data, schema, {key: 'a.b'}, errors => {
       expect(errors).to.have.keys(['a'])
       expect(errors['a']).to.have.keys(['b'])
-      expect(errors['a']['b']).to.deep.equal(['should have required property \'b\''])
+      expect(errors['a']['b']).to.deep.equal(['"b" is required'])
       done()
     })
   })
@@ -189,7 +189,7 @@ describe('JsonSchemaValidationStrategy', () => {
     }
     const data = {a: {}}
     strategy().validate(data, schema, {key: 'a'}, errors => {
-      expect(errors).to.deep.equal({a: {b: ['should have required property \'b\''], c: ['should have required property \'c\'']}})
+      expect(errors).to.deep.equal({a: {b: ['"b" is required'], c: ['"c" is required']}})
       done()
     })
   })
@@ -263,10 +263,10 @@ describe('JsonSchemaValidationStrategy', () => {
     strategy().validate({range: [100, 200], password: ''}, schema, {}, errors => {
       expect(errors).to.have.keys(['range', 'password'])
       expect(errors['password']).to.deep.equal([
-        'should match pattern "[a-zA-Z0-9]{3,30}"'
+        '"password" should match pattern "[a-zA-Z0-9]{3,30}"'
       ])
-      expect(errors['range'][0]).to.deep.equal(['should be <= 10'])
-      expect(errors['range'][1]).to.deep.equal(['should be <= 10'])
+      expect(errors['range'][0]).to.deep.equal(['"0" must be larger than or equal to 10'])
+      expect(errors['range'][1]).to.deep.equal(['"1" must be larger than or equal to 10'])
       done()
     })
   })
@@ -292,7 +292,7 @@ describe('JsonSchemaValidationStrategy', () => {
     strategy().validate({range: [100, 200], password: ''}, schema, {key: 'password'}, errors => {
       expect(errors).to.have.keys(['password'])
       expect(errors['password']).to.deep.equal([
-        'should match pattern "[a-zA-Z0-9]{3,30}"'
+        '"password" should match pattern "[a-zA-Z0-9]{3,30}"'
       ])
       expect(errors['range']).to.be.undefined
       done()
@@ -320,7 +320,7 @@ describe('JsonSchemaValidationStrategy', () => {
     strategy().validate(value, schema, {}, errors => {
       expect(errors).to.have.keys(['objects'])
       expect(errors['objects'][0]).to.equal(undefined)
-      expect(errors['objects'][1]).to.deep.equal({b: ['should have required property \'b\'']})
+      expect(errors['objects'][1]).to.deep.equal({b: ['"b" is required']})
       done()
     })
   })
@@ -346,7 +346,7 @@ describe('JsonSchemaValidationStrategy', () => {
     strategy().validate(value, schema, {key: 'objects[1]'}, errors => {
       expect(errors).to.have.keys(['objects'])
       expect(errors['objects'][0]).to.equal(undefined)
-      expect(errors['objects'][1]).to.deep.equal({b: ['should have required property \'b\'']})
+      expect(errors['objects'][1]).to.deep.equal({b: ['"b" is required']})
       done()
     })
   })
@@ -370,6 +370,7 @@ describe('JsonSchemaValidationStrategy', () => {
           type: 'object',
           properties: {
             username: {
+              label: 'Username',
               type: 'string',
               minLength: 3,
               maxLength: 30
@@ -388,10 +389,9 @@ describe('JsonSchemaValidationStrategy', () => {
     }
     strategy().validate({objects: [{}, {a: 'a'}], form: {username: null}}, schema, {}, errors => {
       expect(errors).to.have.keys(['objects', 'form'])
-      expect(errors['objects'][1]).to.deep.equal({b: ['should have required property \'b\'']})
-      expect(errors['form'].username[0]).to.equal('should be string')
+      expect(errors['objects'][1]).to.deep.equal({b: ['"b" is required']})
+      expect(errors['form'].username[0]).to.equal('"Username" must be a string')
       done()
     })
   })
 })
-
