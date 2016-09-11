@@ -24,6 +24,6 @@ export default {
     }
   ],
   globals: {
-    'jsen': 'jsen',
+    'jsen': 'jsen'
   }
 }
